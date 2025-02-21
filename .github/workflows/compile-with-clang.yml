@@ -1,0 +1,55 @@
+name: Compile C Code with Clang on Multiple Platforms
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest] # Define platforms
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Install Clang and other necessary tools for each platform
+      - name: Install Clang on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y clang make
+
+      - name: Install Clang on MacOS
+        if: matrix.os == 'macos-latest'
+        run: brew install llvm
+
+      - name: Install Clang on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install llvm -y
+          echo "::add-path::C:\Program Files\LLVM\bin"
+
+      # Compile the C code using Clang
+      - name: Compile C code with Clang on Linux/MacOS
+        if: matrix.os != 'windows-latest'
+        run: clang -o /bin/FischingC /src/FischingC.c
+
+      - name: Compile C code with Clang on Windows
+        if: matrix.os == 'windows-latest'
+        run: clang -o /bin/FischingC.exe /src/FischingC.c
+
+      # Optionally run the compiled program (Linux/MacOS)
+      - name: Run the program (optional, Linux/MacOS)
+        if: matrix.os != 'windows-latest'
+        run: ./output-file
+
+      # Optionally run the compiled program (Windows)
+      - name: Run the program (optional, Windows)
+        if: matrix.os == 'windows-latest'
+        run: .\output-file.exe
