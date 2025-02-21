@@ -17,4 +17,5 @@ printf("Now you can start fisching!\n");
 if (answer == 'n') {
 printf("You didn't buy 'Wooden Fisching Rod'!\n");
 };
+return 0;
 };
