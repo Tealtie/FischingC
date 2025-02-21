@@ -24,20 +24,22 @@ jobs:
       - name: Create bin directory
         run: mkdir -p bin
 
-      # Install Clang and necessary tools on each platform
+      # Install Clang on Linux
       - name: Install Clang on Linux
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get update && sudo apt-get install -y clang make
 
+      # Install Clang on MacOS
       - name: Install Clang on MacOS
         if: matrix.os == 'macos-latest'
         run: brew install llvm
 
+      # Install Clang on Windows and add LLVM bin to the PATH
       - name: Install Clang on Windows
         if: matrix.os == 'windows-latest'
         run: |
           choco install llvm -y
-          echo "::add-path::C:\Program Files\LLVM\bin"
+          echo "C:\Program Files\LLVM\bin" >> $GITHUB_PATH
 
       # Compile the C code using Clang on Linux/MacOS
       - name: Compile C code with Clang on Linux/MacOS
