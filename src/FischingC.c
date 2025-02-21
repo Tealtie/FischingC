@@ -9,13 +9,15 @@ printf("Since you are a beginner, you can only afford the cheapest one.\n");
 printf("You can buy 'Wooden Fisching Rod' for 10 Cents.\n");
 printf("Do you want to buy it? (y/n)\n");
 char answer;
-scanf("%c", &answer);
+scanf(" %c", &answer);
 if (answer == 'y') {
 printf("YOU BOUGHT 'WOODEN FISCHING ROD'!\n");
 printf("Now you can start fisching!\n");
-};
-if (answer == 'n') {
+} else if (answer == 'n') {
 printf("You didn't buy 'Wooden Fisching Rod'!\n");
-};
+} else {
+printf("%c is an invalid input!\n", answer);
+return 1;
+}
 return 0;
-};
+}
