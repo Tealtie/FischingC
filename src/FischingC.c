@@ -17,7 +17,7 @@ printf("Now you can start fisching!\n");
 printf("You didn't buy 'Wooden Fisching Rod'!\n");
 } else {
 printf("%c is an invalid input!\n", answer);
-return 1;
+return 0;
 }
 return 0;
 }
