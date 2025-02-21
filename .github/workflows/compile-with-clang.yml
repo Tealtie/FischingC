@@ -40,12 +40,12 @@ jobs:
       # Compile the C code using Clang on Linux/MacOS
       - name: Compile C code with Clang on Linux/MacOS
         if: matrix.os != 'windows-latest'
-        run: clang -o ./bin/FischingC ./src/FischingC.c
+        run: clang -o bin/FischingC ./src/FischingC.c
 
       # Compile the C code using Clang on Windows
       - name: Compile C code with Clang on Windows
         if: matrix.os == 'windows-latest'
-        run: clang -o ./bin/FischingC.exe ./src/FischingC.c
+        run: clang -o bin/FischingC.exe ./src/FischingC.c
 
       # Optionally run the compiled program (Linux/MacOS)
       - name: Run the program (optional, Linux/MacOS)
